@@ -15,4 +15,10 @@ class ShopController extends Controller
         // return view('product.byCat', ['products' => $products, 'brands' => $brands]);
         return view('product.byCat', ['sub_cat_id' => $sub_category->id, 'sub_cat_name' => $sub_category->name]);
     }
+
+    public function getProductDetail(Request $request, $slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
+        return view('product.detail', ['product' => $product]);
+    }
 }

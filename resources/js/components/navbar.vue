@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between flex-wrap relative sticky top-0 bg-denim-blue md:bg-transparent pt-2 z-10">
+  <div class="flex justify-between flex-wrap relative sticky top-0 bg-denim-blue md:bg-white pt-2 z-10">
     <div class="order-1 w-1/2 md:w-1/6 flex items-center text-white">
       <svg class="w-8 h-8 mx-2" fill="none" stroke="currentColor" @touchstart="showLinks = !showLinks" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       <img src="/storage/calco4.png" alt="logo" class="w-1/3 mx-2">
@@ -28,7 +28,7 @@
       </div>
     </transition>
     <transition name="fade">
-      <div class="order-4 w-full absolute md:static top-0 bg-white" v-show="showLinks">
+      <div class="order-4 w-full h-screen md:h-auto absolute md:static top-0 bg-white" v-show="showLinks">
         <div class="w-full bg-blue-700 h-auto py-1 flex justify-end md:hidden">
           <div class="w-1/4" @touchstart="showLinks = false">
               <svg class="w-10 h-10 m-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@
             <svg class="w-6 h-6 mx-4 hidden md:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
-            <p href="#" class="inline-block font-bold text-lg">Categorías</p>
+            <p href="#" class="inline-block font-bold text-lg" @touchstart="showCat = !showCat">Categorías</p>
           </li>
           <div class="md:absolute md:transform md:translate-y-10 w-full z-10 md:flex" @mouseleave="showCat = false, showSubCat = false">
             <div class="md:ml-8 w-1/6 md:bg-denim-blue md:text-white rounded-l-lg" v-if="showCat">
@@ -86,7 +86,7 @@ export default {
     return {
       showSearch: screen.width < 760 ? false:true,
       showLinks: screen.width < 760 ? false:true,
-      showCat: screen.width < 760 ? true:false,
+      showCat: false,
       showSubCat: screen.width < 760 ? true:false,
       categories: [],
       subCategories: [],
@@ -99,7 +99,6 @@ export default {
   },
   methods: {
     onResize(event) {
-      this.showSearch = screen.width < 760 ? false:true;
       this.showLinks = screen.width < 760 ? false:true;
       this.showCat = screen.width < 760 ? true:false;
     },

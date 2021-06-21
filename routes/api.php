@@ -15,6 +15,10 @@ use App\Models\SubCategory;
 use App\Http\Resources\SubCategoryResource;
 use App\Http\Resources\SubCategoryCollection;
 use App\Http\Controllers\CartController;
+use App\Http\Resources\productImageResource;
+use App\Models\ProductType;
+use App\Http\Resources\ProductTypeResource;
+use App\Http\Resources\ProductTypeCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +51,8 @@ Route::get('/brands', function () {
     $brands = Brand::withCount(['products' => function ($query) {
         $query->withFilters(
             request()->input('brands', []),
-            request()->input('subcategories', [])
+            request()->input('subcategories', []),
+            request()->input('types', [])
         );
     }])->get();
 
@@ -58,10 +63,15 @@ Route::get('/product/{id}', function ($id) {
     return new ProductResource(Product::findOrFail($id));
 });
 
+Route::get('/product-images/{id}', function ($id) {
+    return new ProductImageResource(Product::findOrFail($id)->productImages);
+});
+
 Route::get('/products', function () {
     $products = Product::has('productImages')->has('productValues')->withFilters(
         request()->input('brands', []),
-        request()->input('subcategories', [])
+        request()->input('subcategories', []),
+        request()->input('types', [])
     )->paginate(20);
 
     return new ProductCollection($products);
@@ -75,9 +85,26 @@ Route::get('/sub-categories', function () {
     $subcategories = SubCategory::withCount(['products' => function ($query) {
         $query->withFilters(
             request()->input('brands', []),
-            request()->input('subcategories', [])
+            request()->input('subcategories', []),
+            request()->input('types', [])
         );
     }])->get();
 
     return new SubCategoryCollection($subcategories);
+});
+
+Route::get('/product-type/{id}', function ($id) {
+    return new ProductTypeResource(ProductType::findOrFail($id));
+});
+
+Route::get('/types', function () {
+    $types = ProductType::withCount(['products' => function ($query) {
+        $query->withFilters(
+            request()->input('brands', []),
+            request()->input('subcategories', []),
+            request()->input('types', [])
+        );
+    }])->get();
+
+    return new ProductTypeCollection($types);
 });

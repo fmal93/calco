@@ -28,6 +28,7 @@
         <div id="app">
             <navbar-component badge="{{ Session::has('cart') ? Session::get('cart')->totalQty : '0' }}"></navbar-component>
             @yield('content')
+            <x-footer-component/>
         </div>
         <script src="{{ Mix('js/app.js') }}"></script>
         @yield('script')

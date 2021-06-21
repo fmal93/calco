@@ -17,6 +17,7 @@ class CartController extends Controller
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
+        
         return view('payment.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
         
     }
@@ -63,7 +64,7 @@ class CartController extends Controller
         $id = $request->input('id');
         $qty = $request->input('qty');
         $product = Product::find($id);
-        $stock = $product->productValues[0]->productStock->stock;
+        $stock = $product->productValues[0]->productStocks->stock;
         $oldCart = Session::has('cart') ? Session::get('cart') : null; 
         $cart = new Cart($oldCart);
         $cart->updateItem($product, $id, $qty, $stock);
@@ -85,14 +86,14 @@ class CartController extends Controller
         $extra_cost_exist = $product->extraCost != null ? $product->extraCost->cargo : 0;
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        if ($cart->items != null && array_key_exists($id, $cart->items) && $cart->items[$id]['qty'] >= $product->productStokc->stock) {
+        if ($cart->items != null && array_key_exists($id, $cart->items) && $cart->items[$id]['qty'] >= $product->productValues[0]->productStocks->stock) {
             return redirect()->route('cart.index')->with('status', 'Cantidad supera el Stock Disponible');
         }
         $cart->addManyItem($product, $id, $qty, $extra_cost_exist);
 
         Session::put('cart', $cart);
         
-        return redirect()->route('cart.index');
+        return redirect('/carrito');
     }
 
     public function getDiscountItems(Request $request) {

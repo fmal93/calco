@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Brand;
+use App\Models\ProductType;
 
 class ProductResource extends JsonResource
 {
@@ -19,6 +21,8 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'description' => $this->description,
+            'brand' => Brand::find($this->brand_id)->name,
+            'product_type' => ProductType::find($this->product_type_id) ? ProductType::find($this->product_type_id)->name : null,
             'price' => number_format($this->productValues[0]->price, 0, '.', '.'),
             'img_url' => $this->productImages[0]->img_url,
             'stock' => $this->productValues[0]->productStock->stock ?? '0',

@@ -26,6 +26,6 @@ class ProductValue extends Model
 
     public function productFeatures()
     {
-        return $this->hasMany(productFeature::class);
+        return $this->hasMany(ProductFeature::class);
     }
 }

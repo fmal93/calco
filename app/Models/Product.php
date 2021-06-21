@@ -14,6 +14,11 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    public function productType()
+    {
+        return $this->belongsTo(ProductType::class);
+    }
+
     public function subCategories()
     {
         return $this->belongsTo(SubCategory::class);
@@ -34,13 +39,15 @@ class Product extends Model
         return $this->hasMany(ProductValue::class);
     }
 
-    public function scopeWithFilters($query, $brands, $subcategories)
+    public function scopeWithFilters($query, $brands, $subcategories, $types)
     {
         return $query->when(count($brands), function ($query) use ($brands) {
             $query->whereIn('brand_id', $brands);
         })
         ->when(count($subcategories), function ($query) use ($subcategories) {
             $query->whereIn('sub_category_id', $subcategories);
+        })->when(count($types), function ($query) use ($types) {
+            $query->whereIn('product_type_id', $types);
         });
     }
 }

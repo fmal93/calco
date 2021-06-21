@@ -65,34 +65,35 @@ class Cart
     }
 
     public function addManyItem($item, $id, $qty, $extra_cost_exist) {
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item, 'discount' => 0];
+        $discount = $item->productValues[0]->productDiscounts ? $item->productValues[0]->productDiscounts->percentage: 0;
+        $storedItem = ['qty' => 0, 'price' => $item->productValues[0]->price, 'item' => $item, 'discount' => $discount];
         if ($this->items) {
             if (array_key_exists($id, $this->items)){
                 $storedItem = $this->items[$id];
-                if ($this->items[$id]['qty']  + $qty >= $item->productStokc->stock) {
+                if ($this->items[$id]['qty']  + $qty >= $item->productValues[0]->productStocks->stock) {
                     $qty = 0;
-                    $storedItem['qty'] =  $item->productStokc->stock;
+                    $storedItem['qty'] =  $item->productValues[0]->productStocks->stock;
                 }
                 $storedItem['qty'] += $qty;
-                $storedItem['price'] = $item->price * $storedItem['qty'] * ((100 - $storedItem['discount']) / 100);
+                $storedItem['price'] = $item->productValues[0]->price * $storedItem['qty'] * ((100 - $storedItem['discount']) / 100);
                 $this->items[$id] = $storedItem;
                 $this->totalQty += $qty;
-                $this->totalPrice += $item->price * $qty * ((100 - $storedItem['discount']) / 100);
+                $this->totalPrice += $item->productValues[0]->price * $qty * ((100 - $storedItem['discount']) / 100);
             }else {
                 $this->extraCost += $extra_cost_exist;
                 $storedItem['qty'] += $qty;
-                $storedItem['price'] = $item->price * $storedItem['qty'] * ((100 - $storedItem['discount']) / 100);
+                $storedItem['price'] = $item->productValues[0]->price * $storedItem['qty'] * ((100 - $storedItem['discount']) / 100);
                 $this->items[$id] = $storedItem;
                 $this->totalQty += $qty;
-                $this->totalPrice += $this->items[$id]['price'] * ((100 - $storedItem['discount']) / 100);
+                $this->totalPrice += $this->items[$id]['price'];
             }
         }else {
             $this->extraCost += $extra_cost_exist;
             $storedItem['qty'] += $qty;
-            $storedItem['price'] = $item->price * $storedItem['qty'] * ((100 - $storedItem['discount']) / 100);
+            $storedItem['price'] = $item->productValues[0]->price * $storedItem['qty'] * ((100 - $storedItem['discount']) / 100);
             $this->items[$id] = $storedItem;
             $this->totalQty += $qty;
-            $this->totalPrice += $this->items[$id]['price'] * ((100 - $storedItem['discount']) / 100);
+            $this->totalPrice += $this->items[$id]['price'];
         }
         
     }
