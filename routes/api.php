@@ -15,7 +15,7 @@ use App\Models\SubCategory;
 use App\Http\Resources\SubCategoryResource;
 use App\Http\Resources\SubCategoryCollection;
 use App\Http\Controllers\CartController;
-use App\Http\Resources\productImageResource;
+use App\Http\Resources\ProductImageResource;
 use App\Models\ProductType;
 use App\Http\Resources\ProductTypeResource;
 use App\Http\Resources\ProductTypeCollection;
