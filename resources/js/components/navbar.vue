@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between flex-wrap relative sticky top-0 bg-denim-blue md:bg-white pt-2 z-10">
+  <div class="flex justify-between flex-wrap relative sticky top-0 bg-denim-blue md:bg-white pt-2 z-30">
     <div class="order-1 w-1/2 md:w-1/6 flex items-center text-white">
       <svg class="w-8 h-8 mx-2" fill="none" stroke="currentColor" @touchstart="showLinks = !showLinks" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       <img src="/storage/calco4.png" alt="logo" class="w-1/3 mx-2">
@@ -28,7 +28,7 @@
       </div>
     </transition>
     <transition name="fade">
-      <div class="order-4 w-full h-screen md:h-auto absolute md:static top-0 bg-white" v-show="showLinks">
+      <div class="order-4 w-full h-screen md:h-auto absolute z-10 md:static top-0 bg-white" v-show="showLinks">
         <div class="w-full bg-blue-700 h-auto py-1 flex justify-end md:hidden">
           <div class="w-1/4" @touchstart="showLinks = false">
               <svg class="w-10 h-10 m-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +36,7 @@
               </svg>
             </div>
         </div>
-        <ul class="w-full block md:flex relative md:border-t-2" @mouseleave="showCat = false">
+        <ul class="w-full block md:flex relative z-10 md:border-t-2" @mouseleave="showCat = false">
           <li class="py-2 order-1 md:order-2">
             <svg class="w-6 h-6 mx-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -60,7 +60,7 @@
             <svg class="w-6 h-6 mx-4 hidden md:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
-            <p href="#" class="inline-block font-bold text-lg" @touchstart="showCat = !showCat">Categorías</p>
+            <p href="#" class="md:inline-block font-bold text-lg flex justify-between" @touchstart="showCat = !showCat">Categorías <span class="pr-10 md:hidden text-xs flex items-center"><span v-if="showSubCat">Atras</span><svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span></p>
           </li>
           <div class="md:absolute md:transform md:translate-y-10 w-full z-10 md:flex" @mouseleave="showCat = false, showSubCat = false">
             <div class="md:ml-8 w-1/6 md:bg-denim-blue md:text-white rounded-l-lg" v-if="showCat">
@@ -68,9 +68,9 @@
                   <span class="ml-10 md:text-sm cursor-pointer hover:underline transform hover:scale-105" @mouseenter="loadSubCategories(category.id)">{{ category.name }}</span>
               </li>
             </div>
-            <div class="w-4/6 md:bg-denim-blue md:text-white rounded-r-lg" v-if="showSubCat && showCat">
-              <li class="py-2" v-for="subCategory in subCategories" v-bind:key="subCategory.id">
-                  <a v-bind:href="'/category/' + subCategory.s_cat_slug" class="mx-10 md:text-sm hover:underline cursor-pointer">{{ subCategory.name }}</a>
+            <div class="w-4/6 md:bg-denim-blue md:text-white rounded-r-lg max-h-96" v-if="showSubCat">
+              <li class="p-2 block md:inline-block" v-for="subCategory in subCategories" v-bind:key="subCategory.id">
+                  <a v-bind:href="'/category/' + subCategory.s_cat_slug" class="ml-10 w-full block md:w-auto md:ml-0 md:text-sm hover:underline cursor-pointer">{{ subCategory.name }}</a>
               </li>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default {
       showSearch: screen.width < 760 ? false:true,
       showLinks: screen.width < 760 ? false:true,
       showCat: false,
-      showSubCat: screen.width < 760 ? true:false,
+      showSubCat: false,
       categories: [],
       subCategories: [],
     }
@@ -99,6 +99,9 @@ export default {
   },
   methods: {
     onResize(event) {
+      if (screen.width > 760) {
+        this.showSearch= true;
+      }
       this.showLinks = screen.width < 760 ? false:true;
       this.showCat = screen.width < 760 ? true:false;
     },
@@ -113,6 +116,7 @@ export default {
       axios.get('/api/category/' + id).then((response) => {
         this.subCategories = response.data.data.subCategories;
         this.showSubCat = true;
+        this.showCat = screen.width > 760 ? true:false;
       }).catch(function (error) {
         console.log(error);
       });
