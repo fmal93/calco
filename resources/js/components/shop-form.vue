@@ -5,20 +5,33 @@
       <svg class="w-6 h-6 inline-block ml-5 border-white fill-current text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
     </div>
     <form action="" class="py-5" v-show="showFilters">
-      <div class="w-11/12 border-2 text-center m-auto py-2 text-lg rounded-md shadow-md font-bold">Marca</div>
+        <div class="w-11/12 m-auto text-md py-1 rounded-md shadow-md font-bold">
+          <svg class="w-6 h-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+          Ordenar
+        </div>
+        <div class="py-2">
+          <div class="w-11/12 m-auto py-1">
+            <select v-model="selected.sort" id="" name="sort" class="block appearance-none w-full bg-white border border-blue-300 curosor-pointer hover:border-blue-500 px-4 py-1 pr-8 rounded shadow-lg leading-tight focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:shadow-outline">
+                <option value="">Seleccione un elemento</option>
+                <option value="asc" class="font-bold text-black italic" >Precio Menor a Mayor</option>
+                <option value="desc" class="font-bold text-black italic" >Precio Mayor a Menor</option>
+            </select>
+          </div>
+        </div>
+        <div class="w-11/12 border-2 text-center m-auto py-2 text-lg rounded-md shadow-md font-bold">Marca</div>
         <div class="py-2">
           <div class="w-11/12 m-auto py-1 px-6" v-for="(brand, index) in brands" v-bind:key="brand.id" v-show="brand.products_count > 0">
             <input type="checkbox" name="brands[]" class="w-4 h-4" :value="brand.id" :id="'brand-'+ index" v-model="selected.brands">
             <label :for="'brand-'+ index" class="px-4 h-4"> <span>{{ brand.name }} ({{ brand.products_count }})</span></label>
           </div>
-      </div>
-      <div class="w-11/12 border-2 text-center m-auto py-2 text-lg rounded-md shadow-md font-bold">Tipo de Producto</div>
+        </div>
+        <div class="w-11/12 border-2 text-center m-auto py-2 text-lg rounded-md shadow-md font-bold">Tipo de Producto</div>
         <div class="py-2">
           <div class="w-11/12 m-auto py-1 px-6" v-for="(type, index) in types" v-bind:key="type.id" v-show="type.products_count > 0">
             <input type="checkbox" name="types[]" class="w-4 h-4" :value="type.id" :id="'type-'+ index" v-model="selected.types">
             <label :for="'type-'+ index" class="px-4 h-4"> <span>{{ type.name }} ({{ type.products_count }})</span></label>
           </div>
-      </div>
+        </div>
     </form>
   </div>
   <div class="w-full md:w-4/5">
@@ -73,7 +86,8 @@ export default {
       selected: {
           brands: [],
           types: [],
-          subcategories: this.subCatId,                    
+          subcategories: this.subCatId,
+          sort: null,               
       },
       product_id: '',
       pagination: {},
@@ -84,9 +98,18 @@ export default {
     subCatId: Array,
   },
   mounted() {
-    // if (localStorage.brands) {
-    //   this.selected.brands = localStorage.brands.split(",");
-    // }
+    if (localStorage.brands) {
+      this.selected.brands = localStorage.brands.split(",");
+      this.showFilters = screen.width < 760 ? false:true;
+    }
+    if (localStorage.types) {
+      this.selected.types = localStorage.types.split(",");
+      this.showFilters = screen.width < 760 ? false:true;
+    }
+    if (localStorage.sort) {
+      this.selected.sort = localStorage.sort;
+      this.showFilters = screen.width < 760 ? false:true;
+    }
     this.loadProducts();
     this.loadBrands();
     this.loadTypes();
@@ -100,7 +123,6 @@ export default {
           this.products = response.data.data;
           this.pagination = response.data.meta;
           this.links = response.data.links;
-          console.log(this.links, this.pagination);
           this.loading = false;
       })
       .catch(function (error) {
@@ -150,8 +172,14 @@ export default {
   watch: {
     selected: {
       handler: function () {
+        localStorage.brands = this.selected.brands;
+        localStorage.types = this.selected.types;
+        if (this.selected.sort) {
+          localStorage.sort = this.selected.sort;
+        }
         this.loadProducts();
         this.loadBrands();
+        this.showFilters = screen.width < 760 ? false:true;
       },
       deep: true
     }

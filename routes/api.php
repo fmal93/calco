@@ -68,12 +68,21 @@ Route::get('/product-images/{id}', function ($id) {
 });
 
 Route::get('/products', function () {
-    $products = Product::has('productImages')->has('productValues')->withFilters(
-        request()->input('brands', []),
-        request()->input('subcategories', []),
-        request()->input('types', [])
-    )->paginate(20);
-
+    if (request()->input('sort')) {
+        $products = Product::has('productImages')->has('productValues')->join('product_values', 'products.id', '=', 'product_values.product_id')->orderBy('product_values.price', request()->input('sort'))->withFilters(
+            request()->input('brands', []),
+            request()->input('subcategories', []),
+            request()->input('types', [])
+        )->paginate(20);
+    }else{
+        $products = Product::has('productImages')->has('productValues')->withFilters(
+            request()->input('brands', []),
+            request()->input('subcategories', []),
+            request()->input('types', [])
+        )->paginate(20);
+    }
+    
+    
     return new ProductCollection($products);
 });
 

@@ -1,5 +1,5 @@
 <footer>
-    <div class="w-full border-t-2 border-gray-300 block md:flex">
+    <div class="w-full border-t-2 border-gray-300 block md:flex py-3">
         <div class="w-full md:w-2/4 flex flex-wrap">
             <cat-footer></cat-footer>
         </div>
