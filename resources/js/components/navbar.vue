@@ -16,11 +16,11 @@
     </div>
     <transition name="fade">
       <div class="order-3 md:order-2 w-full md:w-4/6 absolute top-0 py-2 bg-denim-blue md:bg-transparent right-0 md:static md:block m-auto" v-if="showSearch">
-        <form action="" class="flex items-center">
+        <form action="/busqueda" class="flex items-center">
           <div class="bg-denim-blue text-white relative left-0 md:hidden" @touchstart="showSearch = false">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           </div>
-          <input type="text" name="" id="" class="rounded-l-lg h-12 w-full px-3 border border-gray-300 focus:outline-none focus:ring-0" placeholder="¿Que Estas Buscando?">
+          <input type="text" name="keywords" id="" class="rounded-l-lg h-12 w-full px-3 border border-gray-300 focus:outline-none focus:ring-0" placeholder="¿Que Estas Buscando?">
           <button type="submit" class="bg-denim-blue text-white rounded-r-lg relative right-0">
             <svg class="w-12 h-12 mx-2 stroke-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </button>

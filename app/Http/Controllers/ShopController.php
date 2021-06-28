@@ -19,6 +19,19 @@ class ShopController extends Controller
     public function getProductDetail(Request $request, $slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();
-        return view('product.detail', ['product' => $product]);
+        return view('product.detail', ['product' => $product, 'brand' => Brand::find($product->brand_id)->name]);
+    }
+
+    public function getSearch(Request $request)
+    {
+        $request->validate([
+            'keywords' => 'required|min:3',
+        ]);
+
+        $keyword = str_replace(" ", "%%", preg_replace("/\s+/", " ", trim(request()->input('keywords'))));
+
+        $products = Product::where('keywords', 'like', "%$keyword%")->orWhere('name', 'like', "%$keyword%")->get();
+
+        return view('product.busqueda', ['products' => $products]);
     }
 }

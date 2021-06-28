@@ -42,7 +42,8 @@
           <div>            
             <p>{{ product.brand }}</p>
             <a v-bind:href="'/product/' + product.slug"><p class="py-2 text-sm md:text-md">{{ product.name }}</p></a>
-            <p class="text-lg text-red-600 font-bold">$ {{ product.price }}</p>
+            <p class="font-bold" v-bind:class="[product.product_discount ? 'text-xs line-through' : 'text-lg']">$ {{ product.price }}</p>
+            <p v-if="product.product_discount" class="text-lg text-red-600 font-bold">$ {{ product.product_discount }}</p>
           </div>      
           
           <p class="pt-3 text-sm tracking-wider flex justify-around items-center">
@@ -58,7 +59,7 @@
               <p>Agregar</p>
           </a>
         </div>
-    </div>
+      </div>
     <div class="w-full">
       <div class="w-2/3 md:w-1/5 border-2 bg-denim-blue mx-auto rounded-lg shadow flex justify-between items-center text-white font-bold">
         <a @click="loadPagination(this.links.prev)" v-bind:class="[this.links.prev == null ? 'opacity-50' : 'cursor-pointer']">

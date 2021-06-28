@@ -8,6 +8,10 @@
         <shop-image product-id="{{ $product->id }}" class="order-1"></shop-image>
         <div class="w-full md:w-1/3 mx-auto py-2 md:py-0 order-3 md:order-2 pb-32 md:pb-0">
             <p class="pb-5 w-full md:w-11/12">{{ $product->description}}</p>
+            <div class="py-1 border-t-2 border-gray-300 flex w-full md:w-11/12">
+                <p class="w-1/2 mx-3">Marca : </p>
+                <p class="w-1/2 mx-3">{{ $brand }}</p>
+            </div>
             @foreach ($product->productValues[0]->productFeatures as $feature)
                 <div class="py-1 border-t-2 border-gray-300 flex w-full md:w-11/12">
                     <p class="w-1/2 mx-3">{{ $feature->feature }}</p>
