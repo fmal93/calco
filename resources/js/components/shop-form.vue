@@ -180,6 +180,7 @@ export default {
         }
         this.loadProducts();
         this.loadBrands();
+        this.loadTypes();
         this.showFilters = screen.width < 760 ? false:true;
       },
       deep: true

@@ -5,6 +5,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::get('/', function () {
     return view('welcome', [ 'products' => $products ]);
 });
 
+Route::get('/sub-category/{slug}', [ShopController::class, 'getBySubCat']);
 Route::get('/category/{slug}', [ShopController::class, 'getByCat']);
 Route::get('/product/{slug}', [ShopController::class, 'getProductDetail']);
 Route::get('/busqueda', [ShopController::class, 'getSearch']);
@@ -37,3 +39,8 @@ Route::get('/remove/{id}', [CartController::class, 'getRemoveItem']);
 Route::get('/update-cart', [CartController::class, 'getupdateItem']);
 Route::get('/add-many', [CartController::class, 'getAddManyItem']);
 Route::get('/get-discount', [CartController::class, 'getDiscountItems']);
+
+Route::post('/checkout', [CheckoutController::class, 'initTransaction']);
+Route::get('/checkout-form', [CheckoutController::class, 'getCheckoutForm']);
+Route::get('/checkout-return', [CheckoutController::class, 'confirmTransaction']);
+Route::post('/checkout-return', [CheckoutController::class, 'confirmTransaction']);

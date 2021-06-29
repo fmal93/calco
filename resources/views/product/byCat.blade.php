@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', "Calco $sub_cat_name")
+@section('title', "Calco $name")
 
 @section('content')
 <div class="w-full flex flex-wrap py-8">

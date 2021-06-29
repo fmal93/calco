@@ -68,10 +68,13 @@
                   <span class="ml-10 md:text-sm cursor-pointer hover:underline transform hover:scale-105" @mouseenter="loadSubCategories(category.id)">{{ category.name }}</span>
               </li>
             </div>
-            <div class="w-4/6 md:bg-denim-blue md:text-white rounded-r-lg max-h-96" v-if="showSubCat">
-              <li class="p-2 block md:inline-block" v-for="subCategory in subCategories" v-bind:key="subCategory.id">
-                  <a v-bind:href="'/category/' + subCategory.s_cat_slug" @click="clearSto()" class="ml-10 w-full block md:w-auto md:ml-0 md:text-sm hover:underline cursor-pointer">{{ subCategory.name }}</a>
-              </li>
+            <div class="w-4/6 md:bg-denim-blue md:text-white rounded-r-lg max-h-96 flex flex-col flex-wrap content-start" v-if="showSubCat">
+              <div class="p-2 md:w-1/5">
+                  <a v-bind:href="'/category/' + catOpe" @click="clearSto()" class="ml-10 w-full block md:w-auto md:ml-0 md:text-sm hover:underline cursor-pointer">ver todo</a>
+              </div>
+              <div class="p-2 md:w-1/5" v-for="subCategory in subCategories" v-bind:key="subCategory.id">
+                  <a v-bind:href="'/sub-category/' + subCategory.s_cat_slug" @click="clearSto()" class="ml-10 w-full block md:w-auto md:ml-0 md:text-sm hover:underline cursor-pointer">{{ subCategory.name }}</a>
+              </div>
             </div>
           </div>
         </ul>
@@ -90,6 +93,7 @@ export default {
       showSubCat: false,
       categories: [],
       subCategories: [],
+      catOpe: '',
     }
   },
   props: ['badge'],
@@ -118,6 +122,7 @@ export default {
     loadSubCategories: function(id){
       axios.get('/api/category/' + id).then((response) => {
         this.subCategories = response.data.data.subCategories;
+        this.catOpe = id;
         this.showSubCat = true;
         this.showCat = screen.width > 760 ? true:false;
       }).catch(function (error) {

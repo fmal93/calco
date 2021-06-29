@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
         "meilisearch/meilisearch-php": "^0.18.1",
-        "tcg/voyager": "^1.4"
+        "tcg/voyager": "^1.4",
+        "transbank/transbank-sdk": "~2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

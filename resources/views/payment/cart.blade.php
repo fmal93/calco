@@ -10,7 +10,7 @@
                 <div class="md:absolute md:right-48 md:top-0">
                     <p class="flex justify-around"><strong>Subtotal: </strong><strong class="px-5">{{ number_format( $totalPrice, 0, '.', '.') }}</strong></p>
                 </div>
-                <a href="" class="block bg-denim-blue text-white w-2/3 m-auto text-center rounded-lg shadow-md p-3 mt-5 md:mt-8 mb-3 md:w-1/4">Avanzar</a>
+                <a href="/checkout-form" class="block bg-denim-blue text-white w-2/3 m-auto text-center rounded-lg shadow-md p-3 mt-5 md:mt-8 mb-3 md:w-1/4">Avanzar</a>
             </div>
         @endif
         <div class="h-40"></div>
