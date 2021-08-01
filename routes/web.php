@@ -19,7 +19,9 @@ use App\Http\Controllers\CheckoutController;
 */
 
 Route::get('/', function () {
-    $products = Product::all();
+    $products = Product::where('Recommended', '=', True)->get();
+
+    dd($products);
     
     return view('welcome', [ 'products' => $products ]);
 });

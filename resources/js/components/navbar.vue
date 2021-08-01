@@ -60,7 +60,7 @@
             <svg class="w-6 h-6 mx-4 hidden md:inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
-            <p href="#" class="md:inline-block font-bold text-lg flex justify-between" @touchstart="showCat = !showCat">Categorías <span class="pr-10 md:hidden text-xs flex items-center"><span v-if="showSubCat">Atras</span><svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span></p>
+            <p class="md:inline-block font-bold text-lg flex justify-between" @touchstart="showCat = !showCat">Categorías <span class="pr-10 md:hidden text-xs flex items-center"><span v-if="showSubCat">Atras</span><svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span></p>
           </li>
           <div class="md:absolute md:transform md:translate-y-10 w-full z-10 md:flex" @mouseleave="showCat = false, showSubCat = false">
             <div class="md:ml-8 w-1/6 md:bg-denim-blue md:text-white rounded-l-lg" v-if="showCat">

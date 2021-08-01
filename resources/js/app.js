@@ -8,6 +8,7 @@ import navbar from './components/navbar.vue';
 import shopForm from './components/shop-form.vue';
 import shopImage from './components/shop-image.vue';
 import catFooter from './components/cat-footer.vue';
+import shippingSelect from './components/shipping-select.vue';
 
 createApp({
     components: {
@@ -15,6 +16,7 @@ createApp({
         'shop-form-component': shopForm,
         'shop-image': shopImage,
         'cat-footer': catFooter,
+        'shipping-select': shippingSelect,
     }
 }).mount("#app");
 

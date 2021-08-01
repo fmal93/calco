@@ -15,7 +15,7 @@ class CheckoutController extends Controller
         
         $total = $cart->totalPrice; 
 
-        return view('payment.checkoutForm', ['total' => $total]);
+        return view('payment.checkoutForm', ['total' => $total, 'cartIds' => implode(",", array_keys($cart->items))]);
     }
 
     public function initTransaction(Request $request)

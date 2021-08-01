@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GPTTV9D38G"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-GPTTV9D38G');
+        </script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('storage/favicon/apple-icon-57x57.png') }}">
@@ -22,7 +31,6 @@
         <meta name="theme-color" content="#ffffff">
         <title>@yield('title')</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        @livewireStyles
     </head>
     <body class="antialiased">
         <div id="app">
@@ -32,7 +40,6 @@
         </div>
         <script src="{{ Mix('js/app.js') }}"></script>
         @yield('script')
-        @livewireScripts
     </body>
 </html>
     

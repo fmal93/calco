@@ -19,6 +19,7 @@ use App\Http\Resources\ProductImageResource;
 use App\Models\ProductType;
 use App\Http\Resources\ProductTypeResource;
 use App\Http\Resources\ProductTypeCollection;
+use App\Models\ProductDimensions;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,4 +117,13 @@ Route::get('/types', function () {
     }])->get();
 
     return new ProductTypeCollection($types);
+});
+
+Route::get('/shipping', function () {
+    
+    $cartIds = request()->input('cartIds', []);
+    
+    $dimensions = ProductDimensions::whereIn('product_id', $cartIds)->get();
+
+    return $dimensions;  
 });
