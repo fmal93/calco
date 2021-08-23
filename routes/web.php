@@ -18,8 +18,6 @@ use App\Http\Controllers\CheckoutController;
 |
 */
 
-URL::forceScheme('https');
-
 Route::get('/', function () {
     $products = Product::where('Recommended', '=', True)->get();
     
