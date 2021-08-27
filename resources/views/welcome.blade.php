@@ -25,7 +25,7 @@
         <div class="swiper-wrapper h-full">
             @if ($products)
                 @foreach ($products as $product)
-                    <div class="swiper-slide h-full">
+                    <div class="swiper-slide h-full pt-4">
                         <a class="h-full" href='/product/{{ $product->slug }}'><img src='/storage/{{ $product->productImages[0]->img_url }}' alt="" class="w-10/12 h-full m-auto"></a>
                     </div>
                 @endforeach 
