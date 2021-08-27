@@ -21,20 +21,40 @@ createApp({
 }).mount("#app");
 
 const swiper1 = new Swiper('.swiper-1', {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    loop: true,
-    lazy: true,
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
+  slidesPerView: 1,
+  spaceBetween: 30,
+  loop: true,
+  lazy: true,
+  autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+
+var swiper = new Swiper('.swiper', {
+  slidesPerView: 4,
+  spaceBetween: 30,
+  slidesPerGroup: 4,
+  loop: true,
+  loopFillGroupWithBlank: true,
+  pagination: {
+    el: '.swiper-pagination',
+    type: 'progressbar',
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+},
+});
