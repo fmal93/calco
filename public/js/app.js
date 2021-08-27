@@ -18038,11 +18038,17 @@ var swiper1 = new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__.default('.swiper-1'
   }
 });
 var swiper = new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__.default('.swiper', {
-  slidesPerView: 4,
+  slidesPerView: 1,
   spaceBetween: 30,
-  slidesPerGroup: 4,
+  slidesPerGroup: 1,
   loop: true,
   loopFillGroupWithBlank: true,
+  breakpoints: {
+    769: {
+      slidesPerView: 5,
+      slidesPerGroup: 5
+    }
+  },
   pagination: {
     el: '.swiper-pagination',
     type: 'progressbar'

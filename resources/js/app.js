@@ -40,11 +40,12 @@ const swiper1 = new Swiper('.swiper-1', {
 });
 
 var swiper = new Swiper('.swiper', {
-  slidesPerView: 4,
+  slidesPerView: 1,
   spaceBetween: 30,
-  slidesPerGroup: 4,
+  slidesPerGroup: 1,
   loop: true,
   loopFillGroupWithBlank: true,
+  breakpoints: { 769: { slidesPerView: 5, slidesPerGroup: 5 } },
   pagination: {
     el: '.swiper-pagination',
     type: 'progressbar',
