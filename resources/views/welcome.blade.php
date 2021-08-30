@@ -41,7 +41,7 @@
     
     <div class="w-full md:flex-wrap md:flex">
         @foreach ($category_images as $image)
-            @if ($image->categorieImage->img_url)
+            @if (isset($image->categorieImage->img_url))
                 <div class="w-11/12 md:w-1/4 my-3 mx-auto">
                     <a class="h-full" href='/category/{{ $image->id }}'><img src='/storage/{{ $image->categorieImage->img_url }}' alt="{{ $image->name}}" class="w-10/12 h-full m-auto"></a>
                 </div> 
