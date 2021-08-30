@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
@@ -20,8 +21,9 @@ use App\Http\Controllers\CheckoutController;
 
 Route::get('/', function () {
     $products = Product::where('Recommended', '=', True)->get();
+    $category_images = Category::where('Recommended', '=', True)->get();
     
-    return view('welcome', [ 'products' => $products ]);
+    return view('welcome', [ 'products' => $products, 'category_images' => $category_images]);
 });
 
 Route::get('/sub-category/{slug}', [ShopController::class, 'getBySubCat']);
